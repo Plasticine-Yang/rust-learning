@@ -1,7 +1,14 @@
-use std::io;
+use std::{cmp::Ordering, io};
+
+use rand::Rng;
 
 fn main() {
     println!("Guess the number!");
+
+    let secret_number = rand::thread_rng().gen_range(1..=100);
+
+    println!("The secret number is: {secret_number}");
+
     println!("Please input your guess.");
 
     // Rust 中用 let 声明的变量都是 immutable 的，加上 mut 关键字使变得 mutable
@@ -21,14 +28,30 @@ fn main() {
         .expect("Failed to read line");
 
     /*
+     * 将输入的字符串解析为 u32 正整数以便下面与 secret_number 进行比较
+     * Rust 支持声明同名变量，官方称这个特性为 Shadowing，一般用于对同一个变量进行类型转换使用
+     */
+    let guess: u32 = guess.trim().parse().expect("Please type a number!");
+
+    /*
      * ```rust
      * let x = 5;
      * let y = 10;
-     * 
+     *
      * println!("x = {x} and y + 2 = {}", y + 2);
      * ```
-     * 
+     *
      * 输出 "x = 5 and y + 2 = 12"
      */
     println!("You guessed: {guess}");
+
+    /*
+     * 类似许多语言的 switch case 语句，但 Rust 的更强大
+     * - "switch" 可以传入表达式，而不仅仅是固定值
+     */
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal => println!("You win!"),
+    }
 }
