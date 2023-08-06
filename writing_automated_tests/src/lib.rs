@@ -21,9 +21,15 @@ impl PartialEq for Rectangle {
 }
 
 pub fn add(left: usize, right: usize) -> usize {
+    print!("add function is called -- {} + {} == {}", left, right, left + right);
     left + right
 }
 
+/**
+ * - `cargo test -- --show-output` 可以在控制台输出测试过程中打印的内容，默认不输出
+ * - `cargo test it_works` 运行指定的测试，测试的名称会进行模糊匹配，尽可能多地匹配符合的测试
+ * - 给测试加上 `#[ignore]` 可以忽略该测试，想要只运行被忽略的测试的话只需要：`cargo test -- --ignored`
+ */
 #[cfg(test)]
 mod tests {
     use super::*;
