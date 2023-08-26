@@ -11,7 +11,12 @@ fn main() {
     println!("Searching for {}", config.query);
     println!("In file {}", config.file_path);
 
-    run(config);
+    // 对于这种只关注 Result 的 Err 的场景，更适合用 if let 而不是 `unwrap_or_else`
+    // 因为 Result 的 Ok 内的值永远是 unit type ()，对我们而言没有任何意义
+    if let Err(e) = run(config) {
+        println!("Application error: {e}");
+        process::exit(1);
+    };
 }
 
 fn run(config: Config) -> Result<(), Box<dyn Error>> {
