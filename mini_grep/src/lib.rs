@@ -25,3 +25,32 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
     Ok(())
 }
+
+/*
+ In this case, we indicate that the returned vector should contain string slices that reference slices of the argument
+ contents (rather than the argument query).
+*/
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    vec![]
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_result() {
+        let query = "duct";
+
+        /*
+         第一个双引号后的 backslash 的作用：
+         tells Rust not to put a newline character at the beginning of the contents of this string literal
+        */
+        let contents = "\
+Rust:
+safe, fast, productive.
+Pick three.";
+
+        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+    }
+}
