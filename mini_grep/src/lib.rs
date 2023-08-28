@@ -44,6 +44,22 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     results
 }
 
+pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    // query 是一个 string slice，比如 `rUsT` 本身并不包含 u 或者 t，而我们进行比较时需要的是 `rust`
+    // 因此 `to_lowercase` 方法会重新分配内存空间去存放 `rust` 字符串
+    let query = query.to_lowercase();
+    let mut results = Vec::new();
+
+    for line in contents.lines() {
+        // contains 需要的是一个 string slice 而不是 String，因此要加 `&`
+        if line.to_lowercase().contains(&query) {
+            results.push(line);
+        }
+    }
+
+    results
+}
+
 #[cfg(test)]
 mod tests {
     use std::vec;
@@ -76,6 +92,9 @@ safe, fast, productive.
 Pick three.
 Trust me.";
 
-        assert_eq!(vec!["Rust:", "Trust me."], search_case_insensitive(query, contents));
+        assert_eq!(
+            vec!["Rust:", "Trust me."],
+            search_case_insensitive(query, contents)
+        );
     }
 }
