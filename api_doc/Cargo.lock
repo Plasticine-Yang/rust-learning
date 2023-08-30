@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "api-doc"
+name = "api_doc"
 version = "0.1.0"

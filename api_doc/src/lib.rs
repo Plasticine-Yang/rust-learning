@@ -1,3 +1,7 @@
+//! # Api Doc
+//! `api_doc` is a collection of utilities to make performing certain
+//! calculations more convenient.
+
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
@@ -8,7 +12,7 @@ pub fn add(left: usize, right: usize) -> usize {
 ///
 /// ```
 /// let arg = 5;
-/// let answer = my_crate::add_one(arg);
+/// let answer = api_doc::add_one(arg);
 ///
 /// assert_eq!(6, answer);
 /// ```
