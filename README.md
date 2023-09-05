@@ -2,8 +2,18 @@
 
 My learning code of [The Rust Programming Language](https://doc.rust-lang.org/book/title-page.html)
 
-## Matching Code for Articles
+## Usage
 
-| articles                                                                                             | code                             |
-| ---------------------------------------------------------------------------------------------------- | -------------------------------- |
-| [2. Programming a Guessing Game](https://doc.rust-lang.org/book/ch02-00-guessing-game-tutorial.html) | [guessing-game](/guessing-game/) |
+### cargo command in watch mode
+
+```shell
+# install
+cargo install cargo-watch
+npm i -g browser-sync
+
+# use
+cargo watch -x doc
+browser-sync ./target/doc
+
+# open browser: http://localhost:3000/your_crate
+```
