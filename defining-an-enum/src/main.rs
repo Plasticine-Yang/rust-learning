@@ -17,12 +17,14 @@ impl Animal {
 }
 
 #[derive(Debug)] // so we can inspect the state in a minute
+#[allow(dead_code)]
 enum UsState {
     Alabama,
     Alaska,
     // --snip--
 }
 
+#[allow(dead_code)]
 enum Coin {
     Penny,
     Nickel,
