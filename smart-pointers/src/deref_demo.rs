@@ -5,7 +5,7 @@
 
 use std::ops::Deref;
 
-pub struct DerefDemo<T> {
+struct DerefDemo<T> {
     pub value: T,
 }
 

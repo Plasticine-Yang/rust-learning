@@ -1,8 +1,12 @@
 //! # Smart Pointers
-//! Smart pointers are usually implemented using structs. Unlike an ordinary struct, smart pointers implement the Deref and Drop traits. The Deref trait allows an instance of the smart pointer struct to behave like a reference so you can write your code to work with either references or smart pointers. The Drop trait allows you to customize the code that’s run when an instance of the smart pointer goes out of scope.
-//! 
+//!
 //! `smart pointers` 通常使用 `struct` 实现。`smart pointers` 不同于结构体的地方在于实现了 `Deref` 和 `Drop` traits。
-//! - `Deref`: 能够具有 `*x` 这样的解引用行为 - 可参考 [deref_demo](crate::deref_demo)
+//!
+//! - `Deref`: 具有 `*x` 这样的解引用行为 - 可参考 [deref_demo](crate::deref_demo)
+//! - `Drop`: 具有 `destructor` 的行为，比如一个变量离开当前作用域之前会触发 destructor 行为，将该变量对应的内存销毁 - 可参考 [drop_demo](crate::drop_demo)
+//!   - 一般来说可以不用去实现该 trait，因为 Rust 会自动触发一个结构体的所有属性的 destructor 行为
+//!   - 除非是类似 `file descriptor` 或者 `socket connection` 这种，在 destructor 中需要手动关闭文件、释放连接等场景，否则大部分情况下可以由 Rust 默认处理
 //!
 
 pub mod deref_demo;
+pub mod drop_demo;
