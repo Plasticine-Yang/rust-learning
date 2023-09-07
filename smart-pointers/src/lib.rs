@@ -7,6 +7,13 @@
 //!   - 一般来说可以不用去实现该 trait，因为 Rust 会自动触发一个结构体的所有属性的 destructor 行为
 //!   - 除非是类似 `file descriptor` 或者 `socket connection` 这种，在 destructor 中需要手动关闭文件、释放连接等场景，否则大部分情况下可以由 Rust 默认处理
 //!
+//! 常见的 `smart pointers` 包括：
+//!
+//! - [`Box<T>`](crate::box_demo): for allocating values on the heap
+//! - `Rc<T>`: a reference counting type that enables multiple ownership
+//! - `Ref<T>` and `RefMut<T>`: accessed through `RefCell<T>`, a type that enforces the borrowing rules at runtime instead of compile time
+//!
 
+pub mod box_demo;
 pub mod deref_demo;
 pub mod drop_demo;
