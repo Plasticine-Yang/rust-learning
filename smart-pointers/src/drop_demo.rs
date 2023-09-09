@@ -2,6 +2,16 @@
 //!
 //! Custom code within the destructor.
 //!
+//! 实现了 `Drop trait` 的 `drop` 方法后，Rust 编译器会在每个函数作用域的最后加上 `drop` 方法里的这些代码，从而让类型对应的内存被自动释放
+//!
+//! 这种自动插入 `drop` 方法的代码的编译器行为无法禁用
+//!
+//! ## 在离开当前作用域之前提前 drop
+//!
+//! 你可能会想着直接调用 `drop` 方法不就行了么？但是在离开当前作用域之前，Rust 会自动调用一次 `drop` 方法，导致出现 `double free error`
+//!
+//! 虽然不能禁用 Rust 编译器在作用域最后插入 `drop` 方法中的代码，但 Rust 提供了另一种方式来帮助我们完成这一目的 - `std::mem::drop`
+//!
 
 struct HasDrop;
 
@@ -60,5 +70,14 @@ mod tests {
         };
 
         println!("Running drop_all_contained_fields!")
+    }
+
+    #[test]
+    fn drop_manually() {
+        let foo = HasDrop;
+
+        println!("HasDrop crated.");
+        drop(foo);
+        println!("HasDrop dropped before the end of the function.");
     }
 }
