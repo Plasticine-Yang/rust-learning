@@ -11,10 +11,11 @@
 //!
 //! - [`Box<T>`](crate::box_demo): for allocating values on the heap
 //! - [`Rc<T>`](crate::reference_count_demo): a reference counting type that enables multiple ownership
-//! - `Ref<T>` and `RefMut<T>`: accessed through `RefCell<T>`, a type that enforces the borrowing rules at runtime instead of compile time
+//! - [`Ref<T>` and `RefMut<T>`](crate::ref_cell_demo): accessed through `RefCell<T>`, a type that enforces the borrowing rules at runtime instead of compile time
 //!
 
 pub mod box_demo;
 pub mod deref_demo;
 pub mod drop_demo;
+pub mod ref_cell_demo;
 pub mod reference_count_demo;
