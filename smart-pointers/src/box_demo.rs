@@ -26,7 +26,7 @@ mod tests {
 
     #[test]
     fn recursive_type() {
-        /// 对于类型中存在递归类型的场景，比如这里 `ConsList` 中有成员的值又是 `ConsList`，Rust 编译器无法在编译时知道该类型的大小
+        /// 对于类型中存在递归类型的场景，比如这里 `ConsList` 链表节点中有成员的值又是 `ConsList`，Rust 编译器无法在编译时知道该类型的大小
         /// 这种时候就可以考虑用 `Box`
         // enum ConsList {
         //     Data(i32, ConsList),
