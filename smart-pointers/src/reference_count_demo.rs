@@ -2,7 +2,7 @@
 //!
 //! We use the `Rc<T>` type when we want to allocate some data on the heap for multiple parts of our program to read and we can’t determine at compile time which part will finish using the data last.
 //!
-//! **Note that Rc<T> is only for use in single-threaded scenarios.**
+//! **`Rc<T>` 只适用于单线程场景**
 //!
 //! ## `foo.clone()` or `Rc::clone(&foo)` ?
 //!
