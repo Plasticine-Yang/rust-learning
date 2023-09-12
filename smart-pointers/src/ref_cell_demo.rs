@@ -28,6 +28,12 @@
 //! 每调用一次 `borrow`，RefCell 内部就会在运行时对该 immutable reference 的计数就会 +1，而当相应的变量离开当前 scope 的时候，相应的计数也会 -1，`borrow_mut` 也是类似的。
 //! 如果在同一作用域中尝试调用两次 `borrow_mut` 去分配两个 `RefMut<T>` 就会抛出 panic - `already borrowed: BorrowMutError`
 //!
+//! ## 拥有多个可变数据所有者
+//!
+//! 在使用 `Rc<T>` 的时候，能够分配多个 immutable reference 指向一块无法在编译时确定内存大小的数据，但如果想要分配多个 mutable reference 怎么办？
+//!
+//! 这时候就可以结合 `RefCell<T>` 来实现了，使用 Rc 包裹 RefCell 即可，即 `Rc<RefCell<T>>`
+//!
 
 pub trait Messenger {
     fn send(&self, msg: &str);
@@ -72,7 +78,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use std::cell::RefCell;
+    use std::{cell::RefCell, fmt::Display, rc::Rc};
 
     use super::*;
 
@@ -117,5 +123,66 @@ mod tests {
 
         bar.push(String::from("Hello"));
         baz.push(String::from("World!"));
+    }
+
+    #[test]
+    fn it_multiple_owner_of_mutable_data() {
+        enum ConsList {
+            Data(Rc<RefCell<i32>>, Rc<ConsList>),
+            Nil,
+        }
+
+        impl Display for ConsList {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                fn perform_unit_of_work(cons_list: &ConsList, f: &mut std::fmt::Formatter<'_>) {
+                    match cons_list {
+                        ConsList::Data(value, next) => {
+                            f.write_fmt(format_args!("{}", *value.borrow()))
+                                .expect("format data error");
+
+                            match **next {
+                                ConsList::Data(_, _) => {
+                                    f.write_str(" -> ").expect("format data error");
+                                    perform_unit_of_work(next, f);
+                                }
+                                ConsList::Nil => perform_unit_of_work(next, f),
+                            }
+                        }
+                        ConsList::Nil => (),
+                    }
+                }
+
+                f.write_str("[").expect("format start error");
+
+                perform_unit_of_work(self, f);
+
+                f.write_str("]").expect("format end error");
+
+                Ok(())
+            }
+        }
+
+        let data = Rc::new(RefCell::new(5));
+
+        let list_a = Rc::new(ConsList::Data(Rc::clone(&data), Rc::new(ConsList::Nil)));
+        let list_b = Rc::new(ConsList::Data(Rc::new(RefCell::new(3)), Rc::clone(&list_a)));
+        let list_c = Rc::new(ConsList::Data(Rc::new(RefCell::new(4)), Rc::clone(&list_a)));
+
+        println!("{} before {}", "=".repeat(20), "=".repeat(20));
+
+        println!("list_a: {}", list_a);
+        println!("list_b: {}", list_b);
+        println!("list_c: {}", list_c);
+
+        // data: Rc<RefCell<i32>> 可看成是 &RefCell<i32> (smart pointer)，因此可以调用 RefCell 上的方法
+        // data.borrow_mut() 返回 RefMut<i32>
+        // *data.borrow_mut() == *RefMut<i32> 触发 Deref trait，得到 i32
+        *data.borrow_mut() += 10;
+
+        println!("{} after {}", "=".repeat(20), "=".repeat(20));
+
+        println!("list_a: {}", list_a);
+        println!("list_b: {}", list_b);
+        println!("list_c: {}", list_c);
     }
 }
