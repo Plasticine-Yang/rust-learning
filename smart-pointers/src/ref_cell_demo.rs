@@ -22,6 +22,12 @@
 //!
 //! 提供了一些运行时方法获取对 `T` 的 mutable reference 和 immutable reference
 //!
+//! - `borrow`: 返回一个 `Ref<T>`，是一个运行时的 immutable reference
+//! - `borrow_mut`: 返回一个 `RefMut<T>`，是一个运行时的 mutable reference
+//!
+//! 每调用一次 `borrow`，RefCell 内部就会在运行时对该 immutable reference 的计数就会 +1，而当相应的变量离开当前 scope 的时候，相应的计数也会 -1，`borrow_mut` 也是类似的。
+//! 如果在同一作用域中尝试调用两次 `borrow_mut` 去分配两个 `RefMut<T>` 就会抛出 panic - `already borrowed: BorrowMutError`
+//!
 
 pub trait Messenger {
     fn send(&self, msg: &str);
@@ -100,5 +106,16 @@ mod tests {
         limit_tracker.set_value(80);
 
         assert_eq!(mock_messenger.sent_messages.borrow().len(), 1);
+    }
+
+    #[test]
+    #[should_panic]
+    fn it_borrow_mut_twice_should_panic() {
+        let foo: RefCell<Vec<String>> = RefCell::new(vec![]);
+        let mut bar = foo.borrow_mut();
+        let mut baz = foo.borrow_mut();
+
+        bar.push(String::from("Hello"));
+        baz.push(String::from("World!"));
     }
 }
