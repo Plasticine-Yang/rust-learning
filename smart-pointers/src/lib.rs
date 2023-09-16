@@ -14,6 +14,8 @@
 //! - [`Ref<T>` and `RefMut<T>`](crate::ref_cell_demo): accessed through `RefCell<T>`, a type that enforces the borrowing rules at runtime instead of compile time
 //!
 //! 此外，还需要注意在组合使用具有内部可变性的 smart pointers 与 Rc 时的循环引用导致的[内存泄露问题](crate::memory_leak_demo)，比如 `RefCell<Rc<T>>`
+//! 
+//! 最后，还会介绍一下[弱引用](crate::weak_reference_demo)的使用场景
 //!
 
 pub mod box_demo;
@@ -22,3 +24,4 @@ pub mod drop_demo;
 pub mod memory_leak_demo;
 pub mod ref_cell_demo;
 pub mod reference_count_demo;
+pub mod weak_reference_demo;
