@@ -1,5 +1,5 @@
 [package]
-name = "traits_demo"
+name = "using_structs_to_structure_related_data"
 version = "0.1.0"
 edition = "2021"
 

@@ -1,5 +1,5 @@
 [package]
-name = "defining-an-enum"
+name = "managing_growing_projects_with_packages_crates_and_modules"
 version = "0.1.0"
 edition = "2021"
 
