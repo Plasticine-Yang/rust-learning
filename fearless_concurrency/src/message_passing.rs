@@ -1,4 +1,8 @@
 //! Using Message Passing to Transfer Data Between Threads
+//!
+//! 通过管道的概念在多个线程之间传递消息，比如多个子线程作为管道的发送方，主线程作为管道的接收方，发送方不断地往管道中发送信息，接收方则不停地
+//! 消费信息，也就是一个「多生产者，单消费者」的场景。
+//!
 
 #[cfg(test)]
 mod tests {
