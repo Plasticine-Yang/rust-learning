@@ -18,7 +18,7 @@ browser-sync ./target/doc
 # open browser: http://localhost:3000/your_crate
 ```
 
-## Table of Content
+## Rust Book - Table of Content
 
 **Naming Format: `original article title number` - `related code` - `original article url`**
 
@@ -37,3 +37,7 @@ I believe it is unnecessary to document the code for some sections, therefore th
   - [pub_use](./pub_use/)
 - 15 - [smart_pointers](./smart_pointers/) - [Smart Pointers](https://doc.rust-lang.org/book/ch15-00-smart-pointers.html)
 - 16 - [fearless_concurrency](./fearless_concurrency/) - [Fearless Concurrency](https://doc.rust-lang.org/book/ch16-00-concurrency.html)
+
+## GeekTime Rust First Class - Table of Content
+
+- 01 - [httpie](./httpie/)
