@@ -1,6 +1,6 @@
 use std::{env, process};
 
-use mini_grep::Config;
+use building_a_command_line_program::Config;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -13,7 +13,7 @@ fn main() {
 
     // 对于这种只关注 Result 的 Err 的场景，更适合用 if let 而不是 `unwrap_or_else`
     // 因为 Result 的 Ok 内的值永远是 unit type ()，对我们而言没有任何意义
-    if let Err(e) = mini_grep::run(config) {
+    if let Err(e) = building_a_command_line_program::run(config) {
         eprintln!("Application error: {e}");
         process::exit(1);
     };

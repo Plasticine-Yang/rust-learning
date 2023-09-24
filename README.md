@@ -36,3 +36,4 @@ I believe it is unnecessary to document the code for some sections, therefore th
   - [api_doc](./api_doc/)
   - [pub_use](./pub_use/)
 - 15 - [smart_pointers](./smart_pointers/) - [Smart Pointers](https://doc.rust-lang.org/book/ch15-00-smart-pointers.html)
+- 16 - [fearless_concurrency](./fearless_concurrency/) - [Fearless Concurrency](https://doc.rust-lang.org/book/ch16-00-concurrency.html)

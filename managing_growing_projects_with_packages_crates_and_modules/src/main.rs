@@ -1,5 +1,5 @@
-use restaurant;
+use managing_growing_projects_with_packages_crates_and_modules;
 
 fn main() {
-  restaurant::eat_at_restaurant();
+  managing_growing_projects_with_packages_crates_and_modules::eat_at_restaurant();
 }

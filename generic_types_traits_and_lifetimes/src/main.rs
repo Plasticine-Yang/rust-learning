@@ -1,4 +1,4 @@
-use traits_demo::{NewsArticle, Summary, Tweet};
+use generic_types_traits_and_lifetimes::{NewsArticle, Summary, Tweet};
 
 fn main() {
     let news_article = NewsArticle {
