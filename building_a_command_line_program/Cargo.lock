@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "mini_grep"
+name = "building_a_command_line_program"
 version = "0.1.0"
