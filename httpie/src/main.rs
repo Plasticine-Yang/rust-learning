@@ -15,11 +15,11 @@
 //! 7. [tokio](https://github.com/tokio-rs/tokio) - 异步 io
 //!
 
-use std::str::FromStr;
+use std::{collections::HashMap, str::FromStr};
 
 use anyhow::{anyhow, Ok, Result};
 use clap::{Parser, Subcommand};
-use reqwest::Url;
+use reqwest::{Client, Url};
 
 /// Simple program to greet a person
 #[derive(Parser, Debug)]
@@ -85,8 +85,37 @@ fn parse_url(s: &str) -> Result<String> {
     Ok(s.into())
 }
 
-fn main() {
-    let args = Opts::parse();
+async fn get(client: Client, args: &Get) -> Result<()> {
+    let resp = client.get(&args.url).send().await?;
 
-    println!("{:?}", args);
+    println!("{:?}", resp.text().await?);
+
+    Ok(())
+}
+
+async fn post(client: Client, args: &Post) -> Result<()> {
+    let mut body = HashMap::new();
+
+    for pair in args.body.iter() {
+        body.insert(&pair.k, &pair.v);
+    }
+
+    let resp = client.post(&args.url).json(&body).send().await?;
+
+    println!("{:?}", resp.text().await?);
+
+    Ok(())
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    let opts = Opts::parse();
+    let client = Client::new();
+
+    let result = match opts.subcmd {
+        SubCommand::Get(ref args) => get(client, args).await?,
+        SubCommand::Post(ref args) => post(client, args).await?,
+    };
+
+    Ok(result)
 }
