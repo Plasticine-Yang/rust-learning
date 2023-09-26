@@ -12,4 +12,5 @@ colored = "2" # 终端彩色字体
 jsonxf = "1.1" # JSON 格式化
 mime = "0.3" # http mime
 reqwest = { version = "0.11", features = ["json"] } # HTTP Client
+syntect = "4"
 tokio = { version = "1", features = ["full"] } # 异步 io
