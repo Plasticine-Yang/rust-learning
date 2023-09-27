@@ -40,4 +40,11 @@ I believe it is unnecessary to document the code for some sections, therefore th
 
 ## GeekTime Rust First Class - Table of Content
 
-- 01 - [httpie](./httpie/)
+### Get hands dirty
+
+- 01 - [httpie](./httpie/): a command-line tool similar to curl
+- 02 - [thumbor](./thumbor/): a image processing server
+
+### Basics
+
+- 01 - [Ownership and Borrow](./ownership-and-borrow/)
