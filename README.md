@@ -48,3 +48,4 @@ I believe it is unnecessary to document the code for some sections, therefore th
 ### Basics
 
 - 01 - [Ownership and Borrow](./ownership-and-borrow/)
+- 02 - [LifeTime](./lifetime/)
