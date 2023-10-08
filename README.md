@@ -50,3 +50,7 @@ I believe it is unnecessary to document the code for some sections, therefore th
 - 01 - [Ownership and Borrow](./ownership-and-borrow/)
 - 02 - [LifeTime](./lifetime/)
 - 03 - [`Cow<T>` demos](./cow_demos/)
+
+## Personal Notebooks
+
+- 01 - [Differences between associated types and generics]()
